@@ -148,7 +148,7 @@
   }
   @media (prefers-reduced-motion: reduce) { .wordmark { animation: none; } }
   @media (max-width: 640px) {
-    .banner { aspect-ratio: auto; height: clamp(380px, 68vh, 520px); max-height: none; }
+    .banner { aspect-ratio: 4 / 5; height: auto; min-height: 0; max-height: none; }
     .banner::before {
       background:
         linear-gradient(to bottom, rgba(20, 5, 3, 0.55), rgba(20, 5, 3, 0) 28%);
@@ -359,10 +359,19 @@
 <body>
 
 <header class="banner on-auburn" id="top">
-  <!-- Poster = image affichée pendant le chargement de la vidéo et si la vidéo ne peut pas se lire (ex. économie de données) -->
-  <video autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" aria-hidden="true" tabindex="-1">
-    <source src="assets/hero.mp4" type="video/mp4">
-  </video>
+  <!-- Vidéo du bandeau : assets/hero.mp4 (ordinateur, 21:9, 2560x1080) et assets/Website_Video_Auburn_1_mobile.mp4 (téléphone, 4:5, 1080x1350).
+       Si ce fichier n'existe pas, le site utilise automatiquement la version ordinateur. -->
+  <video id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+  <script>
+    (function () {
+      var D = "assets/hero.mp4", M = "assets/Website_Video_Auburn_1_mobile.mp4", PD = "assets/hero-poster.jpg", PM = PD;
+      var v = document.getElementById('hero-video');
+      var phone = window.matchMedia('(max-width: 640px)').matches;
+      v.poster = phone ? PM : PD;
+      v.addEventListener('error', function () { if (v.getAttribute('src') !== D) { v.poster = PD; v.src = D; v.play(); } });
+      v.src = phone ? M : D;
+    })();
+  </script>
   <div class="wrap">
     <nav class="topbar" aria-label="Navigation principale">
       <a href="#projets">Projets</a>
@@ -444,6 +453,7 @@
         <!-- ordre 4 : pas de miniature (lien de chaîne), bloc de couleur -->
         <article class="project">
           <a class="poster poster-a" href="https://www.youtube.com/@the-hr-masterclass" target="_blank" rel="noopener" aria-label="Voir la chaîne YouTube du podcast RH (nouvel onglet)">
+            <img class="thumb" src="assets/thumb-hr.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
             <span class="where">Voir la chaîne YouTube</span>
             <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
           </a>
@@ -473,6 +483,7 @@
         <!-- ordre 7 : Tallinn Product Group (texte à valider) -->
         <article class="project">
           <a class="poster poster-a" href="https://www.tpg.ee/p/a-cpos-personal-kpis" target="_blank" rel="noopener" aria-label="Voir l'épisode du podcast Tallinn Product Group (nouvel onglet)">
+            <img class="thumb" src="assets/thumb-tpg.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
             <span class="where">Voir l'épisode</span>
             <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
           </a>
@@ -483,6 +494,7 @@
         <!-- ordre 8 : Instagram, pas de miniature -->
         <article class="project">
           <a class="poster poster-b" href="https://www.instagram.com/reel/DU6F8gJDLiS/" target="_blank" rel="noopener" aria-label="Voir le reel sur Instagram (nouvel onglet)">
+            <img class="thumb" src="assets/thumb-reel-adrien.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
             <span class="where">Voir sur Instagram</span>
             <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
           </a>
