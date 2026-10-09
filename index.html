@@ -96,9 +96,8 @@
   .banner {
     position: relative;
     isolation: isolate;
-    aspect-ratio: 21 / 9;          /* bandeau panoramique 2560 x 1080 */
-    min-height: 340px;
-    max-height: 72vh;
+    width: 100%;
+    height: clamp(340px, 42.857vw, 72vh);   /* ratio 21:9 (2560 x 1080), limité à 72% de la hauteur de l'écran */
     background: var(--auburn);
     overflow: hidden;
   }
@@ -251,18 +250,18 @@
   }
   .arrows { display: flex; gap: 0.6rem; }
   .arrow {
-    width: 46px; height: 46px;
+    width: 52px; height: 52px;
     border-radius: 50%;
-    border: 2px solid var(--text);
-    background: transparent;
-    color: var(--text);
+    border: 0;
+    background: var(--turquoise);
+    color: var(--coffee);
     display: grid; place-items: center;
     cursor: pointer;
     transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
   }
-  .arrow:hover:not(:disabled) { background: var(--text); color: var(--bg); }
-  .arrow:disabled { opacity: 0.3; cursor: default; }
-  .arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .arrow:hover:not(:disabled) { background: var(--auburn); color: var(--offwhite); }
+  .arrow:disabled { opacity: 0.35; cursor: default; }
+  .arrow svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
   .carousel {
     display: flex;
     gap: 1.5rem;
