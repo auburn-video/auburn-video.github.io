@@ -197,6 +197,17 @@
   .btn-line { border-color: rgba(242, 244, 243, 0.7); color: var(--offwhite); }
   .btn-line:hover { background: var(--offwhite); color: var(--auburn); }
 
+  button.btn { font: inherit; font-weight: 600; font-size: 0.98rem; cursor: pointer; }
+  .alt-action { margin: 1.1rem 0 0; font-size: 0.95rem; color: rgba(242, 244, 243, 0.92); }
+  .copy-link {
+    font: inherit; color: inherit; background: none; border: 0; padding: 0.25rem 0;
+    cursor: pointer; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px;
+  }
+  .copy-link:hover { color: var(--turquoise); }
+  .btn.is-copied { background: var(--turquoise); border-color: var(--turquoise); color: var(--coffee); }
+  .mail-out { display: block; margin-top: 0.9rem; font-weight: 500; letter-spacing: 0.01em; user-select: all; }
+  .alt-action .mail-out { display: inline; margin: 0 0 0 0.6rem; }
+
   /* ---------- Sections ---------- */
   .section { padding-block: clamp(3.5rem, 8vw, 6rem); }
   .section h2 {
@@ -387,8 +398,9 @@
     <h1>MONTAGE DE CONTENU AUTHENTIQUE<br class="br-d"> QUI FAIT VOYAGER TON AUDIENCE.</h1>
     <p class="tagline">Partenaire créative en montage vidéo pour les entrepreneurs, coachs et éducateurs qui souhaitent partager leurs connaissances.</p>
     <div class="actions">
-      <a class="btn btn-solid" href="mailto:auburn.ou@gmail.com?subject=Un%20projet%20vid%C3%A9o">Parlons de ton projet : écris-moi</a>
+      <a class="btn btn-solid" href="#contact" data-mail>Parlons de ton projet : écris-moi</a>
     </div>
+    <p class="alt-action"><button type="button" class="copy-link" data-copy>ou copier mon e-mail</button><span class="mail-out" data-reveal hidden></span></p>
   </div>
 </section>
 
@@ -532,10 +544,12 @@
     <h2>Parlons de ton projet.</h2>
     <p>Derrière Auburn, c'est moi, Clélia, expat basée à Tallinn, je travaille à distance avec des clients en Europe et ailleurs, en français, anglais et espagnol.</p>
     <div class="actions">
-      <a class="btn btn-solid" href="mailto:auburn.ou@gmail.com?subject=Un%20projet%20vid%C3%A9o">Écris-moi</a>
+      <a class="btn btn-solid" href="#contact" data-mail>Écris-moi</a>
+      <button type="button" class="btn btn-line" data-copy>Copier mon e-mail</button>
       <!-- Instagram : à remettre quand le compte est actif
       <a class="btn btn-line" href="https://www.instagram.com/auburn.video/" target="_blank" rel="noopener">Instagram</a> -->
     </div>
+    <span class="mail-out" data-reveal hidden></span>
   </div>
   <footer>
     <div class="wrap">
@@ -565,6 +579,31 @@
       if (e.key === 'ArrowLeft') { c.scrollBy({ left: -step() }); e.preventDefault(); }
     });
     update();
+    // E-mail assemblé par le script : il n'est pas écrit en clair dans la page
+    var addr = ['auburn.ou', 'gmail.com'].join('@');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-mail]'), function (a) {
+      a.href = 'mailto:' + addr + '?subject=Un%20projet%20vid%C3%A9o';
+    });
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) { return navigator.clipboard.writeText(text); }
+      return new Promise(function (ok, fail) {
+        var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy') ? ok() : fail(); } catch (e) { fail(e); } document.body.removeChild(ta);
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (btn) {
+      var label = btn.textContent;
+      var out = btn.parentNode.querySelector('[data-reveal]') || btn.parentNode.nextElementSibling;
+      btn.addEventListener('click', function () {
+        var show = function (msg) {
+          btn.textContent = msg; btn.classList.add('is-copied');
+          if (out && out.hasAttribute('data-reveal')) { out.textContent = addr; out.hidden = false; }
+          setTimeout(function () { btn.textContent = label; btn.classList.remove('is-copied'); }, 2500);
+        };
+        copyText(addr).then(function () { show('Copié !'); }, function () { show('Adresse affichée'); });
+      });
+    });
     // Si l'utilisateur a active "reduire les animations", on coupe la video
     var v = document.querySelector('.banner video');
     if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
