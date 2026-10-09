@@ -222,7 +222,7 @@
   .section .intro { margin: 0 0 clamp(2rem, 4vw, 3rem); max-width: 56ch; color: var(--muted); }
 
   /* ---------- Projects ---------- */
-  .project { display: grid; gap: 1.1rem; align-content: start; }
+  .project { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; align-content: start; min-width: 0; }
   .project h3 {
     margin: 0;
     font-family: var(--font-display);
@@ -334,7 +334,21 @@
   .poster:hover .play { transform: scale(1.08); }
   @media (prefers-reduced-motion: reduce) { .poster:hover .play { transform: none; } }
 
+  /* Lecture sur place : un clic sur la carte lance la vidéo à la place de la miniature */
+  .poster-hit { position: absolute; inset: 0; z-index: 1; width: 100%; background: none; border: 0; padding: 0; cursor: pointer; }
+  .poster .play { pointer-events: none; }
+  .poster a.where { z-index: 2; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .poster a.where:hover { color: var(--turquoise); }
+  .poster iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 3; background: #000; }
+  .poster.is-playing::before, .poster.is-playing::after { display: none; }
+  .poster.is-playing { overflow: visible; margin-bottom: 2.1rem; width: 100%; height: auto; max-width: 100%; }
+  .poster.is-playing iframe { border-radius: 6px; }
+  .poster.is-playing > *:not(iframe):not(a.where) { display: none; }
+  /* Le lien « Voir sur YouTube » reste disponible sous la vidéo en lecture */
+  .poster.is-playing > a.where { display: block; left: 0; bottom: -1.9rem; max-width: none; color: var(--text); }
+  .poster.is-playing > a.where:hover { color: var(--auburn); }
   .link-out { font-weight: 600; font-size: 0.95rem; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+
 
   /* ---------- What I do ---------- */
   .do-grid { display: grid; gap: 2rem; margin-top: 2.25rem; }
@@ -411,11 +425,12 @@
 
       <!-- PROJET PRINCIPAL (ordre 0) : le showreel du podcast d'Adrien -->
       <article class="project featured">
-        <a class="poster poster-a" href="https://youtu.be/GOJ2gEzuQG0" target="_blank" rel="noopener" aria-label="Regarder le showreel du podcast sur YouTube (nouvel onglet)">
+        <div class="poster poster-a" data-yt="GOJ2gEzuQG0">
           <img class="thumb" src="https://i.ytimg.com/vi/GOJ2gEzuQG0/hqdefault.jpg" alt="" onerror="this.remove()"><span class="shade"></span>
-          <span class="where">Voir sur YouTube</span>
+          <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+          <a class="where" href="https://youtu.be/GOJ2gEzuQG0" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
           <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
-        </a>
+        </div>
         <div class="project">
           <h3>Podcast - Coaching entrepreneurial</h3>
           <p>Montage d'épisode de podcast et de Shorts extraits des épisodes. L'édition fait voyager avec ces entrepreneurs atypiques, au plus proche de leur voix. Storytelling et rythme fluide pour une aventure qu'on a envie de suivre.</p>
@@ -433,21 +448,23 @@
       <div class="carousel" id="carousel" tabindex="0" aria-label="Autres projets, défilement horizontal">
         <!-- PROJET (ordre 1) : copier-coller un bloc article pour ajouter un projet -->
         <article class="project">
-          <a class="poster poster-a" href="https://youtu.be/LHBiHRs4090" target="_blank" rel="noopener" aria-label="Regarder la publicité masterclass sur YouTube (nouvel onglet)">
+          <div class="poster poster-a" data-yt="LHBiHRs4090">
             <img class="thumb" src="https://i.ytimg.com/vi/LHBiHRs4090/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
-            <span class="where">Voir sur YouTube</span>
+            <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+            <a class="where" href="https://youtu.be/LHBiHRs4090" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
             <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
-          </a>
+          </div>
           <h3>Publicité - Masterclass en ligne</h3>
           <p>Une publicité qui joue sur l'émotion, de façon authentique, pour donner envie de rejoindre la masterclass, dès le hook.</p>
         </article>
         <!-- ordre 2 -->
         <article class="project">
-          <a class="poster poster-b" href="https://youtu.be/JKViA8VjJLs" target="_blank" rel="noopener" aria-label="Regarder le cours de finance sur YouTube (nouvel onglet)">
+          <div class="poster poster-b" data-yt="JKViA8VjJLs">
             <img class="thumb" src="https://i.ytimg.com/vi/JKViA8VjJLs/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
-            <span class="where">Voir sur YouTube</span>
+            <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+            <a class="where" href="https://youtu.be/JKViA8VjJLs" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
             <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
-          </a>
+          </div>
           <h3>Cours vidéo en ligne - Finance</h3>
           <p>Montage d'un cours vidéo mettant en valeur les éléments clés de l'apprentissage. Un branding proche de l'accompagnement émotionnel voulu par le client sur ce sujet difficile qu'est l'argent.</p>
         </article>
@@ -463,7 +480,7 @@
         -->
         <!-- ordre 8 : Instagram, pas de miniature -->
         <article class="project">
-          <a class="poster poster-b" href="https://www.instagram.com/reel/DU6F8gJDLiS/" target="_blank" rel="noopener" aria-label="Voir le reel sur Instagram (nouvel onglet)">
+          <a class="poster poster-b" href="https://www.instagram.com/adriencolombie/reels/" target="_blank" rel="noopener" aria-label="Voir les reels d'Adrien Colombié sur Instagram (nouvel onglet)">
             <img class="thumb" src="assets/thumb-reel-adrien.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
             <span class="where">Voir sur Instagram</span>
             <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
@@ -484,21 +501,23 @@
         </article>
         <!-- ordre 5 -->
         <article class="project">
-          <a class="poster poster-b" href="https://www.youtube.com/watch?v=u7tTaQJrH4w" target="_blank" rel="noopener" aria-label="Regarder l'épisode du podcast Startups sur YouTube (nouvel onglet)">
+          <div class="poster poster-b" data-yt="u7tTaQJrH4w">
             <img class="thumb" src="https://i.ytimg.com/vi/u7tTaQJrH4w/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
-            <span class="where">Voir sur YouTube</span>
+            <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+            <a class="where" href="https://www.youtube.com/watch?v=u7tTaQJrH4w" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
             <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
-          </a>
+          </div>
           <h3>Podcast - Startups</h3>
           <p>Montage d'épisodes de podcast en anglais, avec une introduction créative et un reel pour promouvoir chaque épisode.</p>
         </article>
         <!-- ordre 6 -->
         <article class="project">
-          <a class="poster poster-a" href="https://youtu.be/CsqbCh5Pqzc" target="_blank" rel="noopener" aria-label="Regarder le vlog sur YouTube (nouvel onglet)">
+          <div class="poster poster-a" data-yt="CsqbCh5Pqzc">
             <img class="thumb" src="https://i.ytimg.com/vi/CsqbCh5Pqzc/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
-            <span class="where">Voir sur YouTube</span>
+            <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+            <a class="where" href="https://youtu.be/CsqbCh5Pqzc" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
             <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
-          </a>
+          </div>
           <h3>Vlog - Apprendre le français</h3>
           <p>Montage de vlogs pour apprendre le français. Un ton léger et vivant, qui fait voyager dans la langue et la culture.</p>
         </article>
@@ -602,6 +621,21 @@
           setTimeout(function () { btn.textContent = label; btn.classList.remove('is-copied'); }, 2500);
         };
         copyText(addr).then(function () { show('Copié !'); }, function () { show('Adresse affichée'); });
+      });
+    });
+    // Lecture sur place : la vidéo YouTube remplace la miniature (chargée seulement au clic)
+    var playing = null;
+    function stopPlayer(p) { var f = p && p.querySelector('iframe'); if (f) { f.remove(); p.classList.remove('is-playing'); } }
+    Array.prototype.forEach.call(document.querySelectorAll('.poster[data-yt] .poster-hit'), function (hit) {
+      hit.addEventListener('click', function () {
+        var p = hit.parentNode;
+        if (playing && playing !== p) { stopPlayer(playing); }
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + p.getAttribute('data-yt') + '?autoplay=1&rel=0';
+        f.title = 'Lecteur vidéo YouTube';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        f.setAttribute('allowfullscreen', '');
+        p.appendChild(f); p.classList.add('is-playing'); playing = p; f.focus();
       });
     });
     // Si l'utilisateur a active "reduire les animations", on coupe la video
