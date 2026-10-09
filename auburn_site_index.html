@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clélia Borget, monteuse vidéo | Auburn Vidéo</title>
+<meta name="description" content="Clélia Borget, monteuse vidéo à Tallinn. Montage vidéo de podcasts, cours en ligne et formats courts pour les entrepreneurs, coachs et éducateurs.">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#7B2314">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Auburn Vidéo">
+<meta property="og:title" content="Clélia Borget, monteuse vidéo | Auburn Vidéo">
+<meta property="og:description" content="Montage de contenu authentique qui fait voyager ton audience. Podcasts, cours en ligne et formats courts pour les entrepreneurs, coachs et éducateurs.">
+<meta property="og:url" content="https://auburn-video.com/">
+<meta property="og:image" content="https://auburn-video.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://auburn-video.com/">
+<link rel="preload" href="assets/fonts/staatliches-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* ---------- Polices hébergées sur le site (pas de Google) ---------- */
+  @font-face { font-family: "Staatliches"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/staatliches-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Poppins"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/poppins-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Poppins"; font-style: normal; font-weight: 500; font-display: swap; src: url("assets/fonts/poppins-latin-500-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Poppins"; font-style: normal; font-weight: 600; font-display: swap; src: url("assets/fonts/poppins-latin-600-normal.woff2") format("woff2"); }
+
+  /* ---------- Tokens ---------- */
+  :root {
+    --auburn: #7B2314;
+    --offwhite: #F2F4F3;
+    --turquoise: #91D5D9;
+    --coffee: #140503;
+    --terracotta: #8D6657;
+
+    --bg: var(--offwhite);
+    --text: var(--coffee);
+    --muted: rgba(20, 5, 3, 0.72);
+    --line: rgba(20, 5, 3, 0.2);
+    --focus: var(--coffee);
+
+    --font-display: "Staatliches", Impact, "Arial Narrow", sans-serif;
+    --font-body: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: var(--auburn);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: var(--coffee);
+      --text: var(--offwhite);
+      --muted: rgba(242, 244, 243, 0.74);
+      --line: rgba(242, 244, 243, 0.24);
+      --focus: var(--turquoise);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: var(--coffee);
+    --text: var(--offwhite);
+    --muted: rgba(242, 244, 243, 0.74);
+    --line: rgba(242, 244, 243, 0.24);
+    --focus: var(--turquoise);
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+  .wrap { width: min(1120px, 100% - 3rem); margin-inline: auto; }
+
+  /* ---------- Bands on auburn ---------- */
+  .on-auburn {
+    background: var(--auburn);
+    color: var(--offwhite);
+    --focus: var(--turquoise);
+  }
+
+  /* ---------- Hero : video en boucle + logo en bas a droite ---------- */
+  .banner {
+    position: relative;
+    isolation: isolate;
+    aspect-ratio: 21 / 9;          /* bandeau panoramique 2560 x 1080 */
+    min-height: 340px;
+    max-height: 72vh;
+    background: var(--auburn);
+    overflow: hidden;
+  }
+  /* Video : assets/hero.mp4 (21:9, 2560x1080, sans son, 10 a 15 s, boucle) */
+  .banner video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 30% center;
+    z-index: -2;
+  }
+  /* Voile auburn : assure la lisibilite du menu et fond le logo dans l'image */
+  .banner::before {
+    content: "";
+    position: absolute; inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(to bottom, rgba(20, 5, 3, 0.55), rgba(20, 5, 3, 0) 28%);
+  }
+  .banner .wrap { height: 100%; }
+  .topbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.75rem;
+    padding-block: 1.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--offwhite);
+  }
+  .topbar a { text-decoration: none; padding: 0.25rem 0; border-bottom: 2px solid transparent; }
+  .topbar a:hover { border-bottom-color: var(--turquoise); }
+  .wordmark {
+    position: absolute;
+    right: clamp(0.6rem, 1vw, 1rem);
+    bottom: clamp(0.6rem, 1.2vw, 1.1rem);
+    border-radius: 2px;
+    box-sizing: border-box;
+    padding: clamp(12px, 2vw, 28px);   /* respiration autour du logo, comme la maquette */
+    width: min(26%, 400px);   /* environ 26 % de la largeur du bandeau */   /* plus grand que les lettres du titre, ratio d'origine conservé */
+    height: auto;
+    background: var(--auburn);   /* bloc auburn plein, en bas à droite avec petite marge */
+    animation: settle 0.9s ease-out both;
+  }
+  @keyframes settle {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .wordmark { animation: none; } }
+  @media (max-width: 640px) {
+    .banner { aspect-ratio: 4 / 5; height: auto; min-height: 0; max-height: none; }
+    .banner::before {
+      background:
+        linear-gradient(to bottom, rgba(20, 5, 3, 0.55), rgba(20, 5, 3, 0) 28%);
+    }
+    .wordmark { width: 200px; padding: 14px; animation: none; }
+  }
+
+  .intro-band { padding-block: clamp(2.5rem, 6vw, 4.5rem) clamp(3.5rem, 8vw, 6rem); }
+  .keywords {
+    margin: 0 0 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--turquoise);
+  }
+  .intro-band h1 {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.3rem, 5.6vw, 4.25rem);
+    line-height: 1.04;
+    letter-spacing: 0.01em;
+    max-width: none;
+  }
+  @media (max-width: 899px) { .br-d { display: none; } }
+  .intro-band .tagline {
+    margin: 0 0 2rem;
+    max-width: 52ch;
+    font-size: clamp(1.02rem, 1.6vw, 1.2rem);
+    font-weight: 400;
+    color: rgba(242, 244, 243, 0.94);
+  }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+  .btn {
+    display: inline-block;
+    padding: 0.85rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    text-decoration: none;
+    border: 2px solid transparent;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  .btn-solid { background: var(--turquoise); color: var(--coffee); }
+  .btn-solid:hover { background: var(--offwhite); }
+  .btn-line { border-color: rgba(242, 244, 243, 0.7); color: var(--offwhite); }
+  .btn-line:hover { background: var(--offwhite); color: var(--auburn); }
+
+  button.btn { font: inherit; font-weight: 600; font-size: 0.98rem; cursor: pointer; }
+  .alt-action { margin: 1.1rem 0 0; font-size: 0.95rem; color: rgba(242, 244, 243, 0.92); }
+  .copy-link {
+    font: inherit; color: inherit; background: none; border: 0; padding: 0.25rem 0;
+    cursor: pointer; text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 2px;
+  }
+  .copy-link:hover { color: var(--turquoise); }
+  .btn.is-copied { background: var(--turquoise); border-color: var(--turquoise); color: var(--coffee); }
+  .mail-out { display: block; margin-top: 0.9rem; font-weight: 500; letter-spacing: 0.01em; user-select: all; }
+  .alt-action .mail-out { display: inline; margin: 0 0 0 0.6rem; }
+
+  /* ---------- Sections ---------- */
+  .section { padding-block: clamp(3.5rem, 8vw, 6rem); }
+  .section h2 {
+    margin: 0 0 0.75rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.4vw, 3.1rem);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+  }
+  .section h2 { margin-bottom: clamp(1.5rem, 3vw, 2.25rem); }
+  .section .intro { margin: 0 0 clamp(2rem, 4vw, 3rem); max-width: 56ch; color: var(--muted); }
+
+  /* ---------- Projects ---------- */
+  .project { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; align-content: start; min-width: 0; }
+  .project h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.7rem;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+  .project p { margin: 0; color: var(--muted); max-width: 52ch; }
+  .project .tag { font-size: 0.85rem; font-weight: 500; color: var(--muted); }
+
+  .featured { display: grid; gap: 1.75rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); align-items: center; }
+  .featured h3 { font-size: clamp(2rem, 3.6vw, 2.7rem); }
+  @media (min-width: 860px) {
+    .featured { grid-template-columns: 1.45fr 1fr; gap: 3rem; }
+  }
+
+  /* Carrousel : une seule ligne, defilement par fleche ou au doigt */
+  .carousel-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+  .carousel-head h3 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    letter-spacing: 0.01em;
+  }
+  .arrows { display: flex; gap: 0.6rem; }
+  .arrow {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    border: 2px solid var(--text);
+    background: transparent;
+    color: var(--text);
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  }
+  .arrow:hover:not(:disabled) { background: var(--text); color: var(--bg); }
+  .arrow:disabled { opacity: 0.3; cursor: default; }
+  .arrow svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  .carousel {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+  }
+  .carousel::-webkit-scrollbar { display: none; }
+  @media (prefers-reduced-motion: reduce) { .carousel { scroll-behavior: auto; } }
+  .carousel > .project { flex: 0 0 min(360px, 82%); scroll-snap-align: start; }
+
+  .poster .thumb {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .poster:has(.thumb)::selection { background: transparent; }
+  .poster .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,5,3,0.55), rgba(20,5,3,0.1) 55%); }
+  .poster .where, .poster .play { z-index: 1; }
+
+  /* Poster: stands in for the video still. Corner brackets echo a camera viewfinder. */
+  .poster {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--offwhite);
+    border: 1px solid var(--line);
+  }
+  .poster-a { background: var(--auburn); }
+  .poster-b { background: var(--coffee); }
+  .poster::before, .poster::after {
+    content: "";
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--turquoise);
+    pointer-events: none;
+  }
+  .poster::before { top: 14px; left: 14px; border-right: 0; border-bottom: 0; }
+  .poster::after { bottom: 14px; right: 14px; border-left: 0; border-top: 0; }
+  .poster .where {
+    position: absolute;
+    left: 20px;
+    bottom: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    max-width: calc(100% - 100px);
+  }
+  .play {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    width: 56px;
+    height: 56px;
+    margin-top: -28px;
+    border-radius: 50%;
+    background: var(--turquoise);
+    display: grid;
+    place-items: center;
+    transition: transform 0.2s ease;
+  }
+  .play svg { width: 24px; height: 24px; margin-left: 4px; fill: var(--coffee); }
+  .poster:hover .play { transform: scale(1.08); }
+  @media (prefers-reduced-motion: reduce) { .poster:hover .play { transform: none; } }
+
+  /* Lecture sur place : un clic sur la carte lance la vidéo à la place de la miniature */
+  .poster-hit { position: absolute; inset: 0; z-index: 1; width: 100%; background: none; border: 0; padding: 0; cursor: pointer; }
+  .poster .play { pointer-events: none; }
+  .poster a.where { z-index: 2; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .poster a.where:hover { color: var(--turquoise); }
+  .poster iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; z-index: 3; background: #000; }
+  .poster.is-playing::before, .poster.is-playing::after { display: none; }
+  .poster.is-playing { overflow: visible; margin-bottom: 2.1rem; width: 100%; height: auto; max-width: 100%; }
+  .poster.is-playing iframe { border-radius: 6px; }
+  .poster.is-playing > *:not(iframe):not(a.where) { display: none; }
+  /* Le lien « Voir sur YouTube » reste disponible sous la vidéo en lecture */
+  .poster.is-playing > a.where { display: block; left: 0; bottom: -1.9rem; max-width: none; color: var(--text); }
+  .poster.is-playing > a.where:hover { color: var(--auburn); }
+  .link-out { font-weight: 600; font-size: 0.95rem; text-underline-offset: 4px; text-decoration-thickness: 2px; }
+
+
+  /* ---------- What I do ---------- */
+  .do-grid { display: grid; gap: 2rem; margin-top: 2.25rem; }
+  .do-item { border-top: 3px solid var(--terracotta); padding-top: 1rem; }
+  .do-item h3 {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+  }
+  .do-item p { margin: 0; color: var(--muted); }
+  @media (min-width: 860px) { .do-grid { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; } }
+
+  /* ---------- Contact ---------- */
+  .contact { padding-block: clamp(3.5rem, 8vw, 6rem); }
+  .contact h2 {
+    margin: 0 0 1rem;
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(2.4rem, 5.6vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: 0.01em;
+  }
+  .contact p { margin: 0 0 1.75rem; max-width: 52ch; color: rgba(242, 244, 243, 0.92); }
+  footer { padding-block: 1.5rem 2rem; font-size: 0.88rem; color: rgba(242, 244, 243, 0.8); }
+  footer p { margin: 0; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem; }
+  footer a { text-underline-offset: 4px; }
+</style>
+</head>
+<body>
+
+<header class="banner on-auburn" id="top">
+  <!-- Vidéo du bandeau : assets/hero.mp4 (ordinateur, 21:9, 2560x1080) et assets/Website_Video_Auburn_1_mobile.mp4 (téléphone, 4:5, 1080x1350).
+       Si ce fichier n'existe pas, le site utilise automatiquement la version ordinateur. -->
+  <video id="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
+  <script>
+    (function () {
+      var D = "assets/hero.mp4", M = "assets/Website_Video_Auburn_1_mobile.mp4", PD = "assets/hero-poster.jpg", PM = PD;
+      var v = document.getElementById('hero-video');
+      var phone = window.matchMedia('(max-width: 640px)').matches;
+      v.poster = phone ? PM : PD;
+      v.addEventListener('error', function () { if (v.getAttribute('src') !== D) { v.poster = PD; v.src = D; v.play(); } });
+      v.src = phone ? M : D;
+    })();
+  </script>
+  <div class="wrap">
+    <nav class="topbar" aria-label="Navigation principale">
+      <a href="#projets">Projets</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <img class="wordmark" src="assets/logo.png" alt="Auburn Vidéo" width="1100" height="646">
+  </div>
+</header>
+
+<section class="intro-band on-auburn">
+  <div class="wrap">
+    <h1>MONTAGE DE CONTENU AUTHENTIQUE<br class="br-d"> QUI FAIT VOYAGER TON AUDIENCE.</h1>
+    <p class="tagline">Partenaire créative en montage vidéo pour les entrepreneurs, coachs et éducateurs qui souhaitent partager leurs connaissances.</p>
+    <div class="actions">
+      <a class="btn btn-solid" href="#contact" data-mail>Parlons de ton projet : écris-moi</a>
+    </div>
+    <p class="alt-action"><button type="button" class="copy-link" data-copy>ou copier mon e-mail</button><span class="mail-out" data-reveal hidden></span></p>
+  </div>
+</section>
+
+<main>
+  <section class="section" id="projets">
+    <div class="wrap">
+      <h2>Projets récents</h2>
+
+      <!-- PROJET PRINCIPAL (ordre 0) : le showreel du podcast d'Adrien -->
+      <article class="project featured">
+        <div class="poster poster-a" data-yt="GOJ2gEzuQG0">
+          <img class="thumb" src="https://i.ytimg.com/vi/GOJ2gEzuQG0/hqdefault.jpg" alt="" onerror="this.remove()"><span class="shade"></span>
+          <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+          <a class="where" href="https://youtu.be/GOJ2gEzuQG0" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+        </div>
+        <div class="project">
+          <h3>Podcast - Coaching entrepreneurial</h3>
+          <p>Montage d'épisode de podcast et de Shorts extraits des épisodes. L'édition fait voyager avec ces entrepreneurs atypiques, au plus proche de leur voix. Storytelling et rythme fluide pour une aventure qu'on a envie de suivre.</p>
+        </div>
+      </article>
+
+      <div class="carousel-head">
+        <h3>Autres projets</h3>
+        <div class="arrows">
+          <button class="arrow" type="button" id="prev" aria-label="Projets précédents"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="arrow" type="button" id="next" aria-label="Projets suivants"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+      </div>
+
+      <div class="carousel" id="carousel" tabindex="0" aria-label="Autres projets, défilement horizontal">
+        <!-- PROJET (ordre 1) : copier-coller un bloc article pour ajouter un projet -->
+        <article class="project">
+          <div class="poster poster-a" data-yt="LHBiHRs4090">
+            <img class="thumb" src="https://i.ytimg.com/vi/LHBiHRs4090/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
+            <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+            <a class="where" href="https://youtu.be/LHBiHRs4090" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+          </div>
+          <h3>Publicité - Masterclass en ligne</h3>
+          <p>Une publicité qui joue sur l'émotion, de façon authentique, pour donner envie de rejoindre la masterclass, dès le hook.</p>
+        </article>
+        <!-- ordre 2 -->
+        <article class="project">
+          <div class="poster poster-b" data-yt="JKViA8VjJLs">
+            <img class="thumb" src="https://i.ytimg.com/vi/JKViA8VjJLs/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
+            <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+            <a class="where" href="https://youtu.be/JKViA8VjJLs" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+          </div>
+          <h3>Cours vidéo en ligne - Finance</h3>
+          <p>Montage d'un cours vidéo mettant en valeur les éléments clés de l'apprentissage. Un branding proche de l'accompagnement émotionnel voulu par le client sur ce sujet difficile qu'est l'argent.</p>
+        </article>
+        <!-- ordre 3 : Tantra (Filipa). Décommenter quand la vidéo est en ligne, et mettre le lien à la place de LIEN_FILIPA
+        <article class="project">
+          <a class="poster poster-a" href="LIEN_FILIPA" target="_blank" rel="noopener" aria-label="Regarder le cours de tantra (nouvel onglet)">
+            <span class="where">Voir la vidéo</span>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+          </a>
+          <h3>Cours en ligne - Tantra</h3>
+          <p>Montage de deux cours en ligne pour découvrir le tantra. Un rythme doux et un branding pour accompagner chaque personne dans la découverte d'une nouvelle pratique.</p>
+        </article>
+        -->
+        <!-- ordre 8 : Instagram, pas de miniature -->
+        <article class="project">
+          <a class="poster poster-b" href="https://www.instagram.com/adriencolombie/reels/" target="_blank" rel="noopener" aria-label="Voir les reels d'Adrien Colombié sur Instagram (nouvel onglet)">
+            <img class="thumb" src="assets/thumb-reel-adrien.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
+            <span class="where">Voir sur Instagram</span>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+          </a>
+          <h3>Reels - Lancement d'un compte IG</h3>
+          <p>Accompagnement sur la production et le montage de reels. Alterner entre des formats tendance qui captent l'attention et des contenus de partage de connaissances.</p>
+        </article>
+
+        <!-- ordre 4 : pas de miniature (lien de chaîne), bloc de couleur -->
+        <article class="project">
+          <a class="poster poster-a" href="https://www.youtube.com/@the-hr-masterclass" target="_blank" rel="noopener" aria-label="Voir la chaîne YouTube du podcast RH (nouvel onglet)">
+            <img class="thumb" src="assets/thumb-hr.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
+            <span class="where">Voir la chaîne YouTube</span>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+          </a>
+          <h3>Podcast - RH et leadership</h3>
+          <p>Collaboration pour le montage d'épisodes d'un podcast RH et leadership. Un ton professionnel et fluide, mettant en valeur l'humain derrière chaque conversation.</p>
+        </article>
+        <!-- ordre 5 -->
+        <article class="project">
+          <div class="poster poster-b" data-yt="u7tTaQJrH4w">
+            <img class="thumb" src="https://i.ytimg.com/vi/u7tTaQJrH4w/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
+            <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+            <a class="where" href="https://www.youtube.com/watch?v=u7tTaQJrH4w" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+          </div>
+          <h3>Podcast - Startups</h3>
+          <p>Montage d'épisodes de podcast en anglais, avec une introduction créative et un reel pour promouvoir chaque épisode.</p>
+        </article>
+        <!-- ordre 6 -->
+        <article class="project">
+          <div class="poster poster-a" data-yt="CsqbCh5Pqzc">
+            <img class="thumb" src="https://i.ytimg.com/vi/CsqbCh5Pqzc/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
+            <button type="button" class="poster-hit" aria-label="Lancer la vidéo"></button>
+            <a class="where" href="https://youtu.be/CsqbCh5Pqzc" target="_blank" rel="noopener" aria-label="Voir sur YouTube (nouvel onglet)">Voir sur YouTube</a>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+          </div>
+          <h3>Vlog - Apprendre le français</h3>
+          <p>Montage de vlogs pour apprendre le français. Un ton léger et vivant, qui fait voyager dans la langue et la culture.</p>
+        </article>
+        <!-- ordre 7 : Tallinn Product Group (texte à valider) -->
+        <article class="project">
+          <a class="poster poster-a" href="https://www.tpg.ee/p/a-cpos-personal-kpis" target="_blank" rel="noopener" aria-label="Voir l'épisode du podcast Tallinn Product Group (nouvel onglet)">
+            <img class="thumb" src="assets/thumb-tpg.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="shade"></span>
+            <span class="where">Voir l'épisode</span>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3.5v17l14-8.5z"/></svg></span>
+          </a>
+          <h3>Podcast - Produit et tech</h3>
+          <p>Montage multicaméra d'épisodes pour un podcast sur le produit et la tech, en anglais. Un ton conversationnel et un rythme fluide, pour que l'échange reste vivant.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services" style="border-top: 1px solid var(--line);">
+    <div class="wrap">
+      <h2>Du premier rush à la mise en ligne</h2>
+      <p class="intro">Mon rôle : clarifier ton message, structurer le contenu et garder un rythme fluide, sans trahir ta voix.</p>
+      <div class="do-grid">
+        <div class="do-item">
+          <h3>Podcasts et cours vidéo</h3>
+          <p>Montage d'épisodes et de formations, du rush à la publication, avec un son soigné et un rythme qui garde l'attention.</p>
+        </div>
+        <div class="do-item">
+          <h3>Formats courts</h3>
+          <p>Reels, Shorts et extraits tirés de tes contenus longs, pensés pour chaque plateforme.</p>
+        </div>
+        <div class="do-item">
+          <h3>Jusqu'à la diffusion</h3>
+          <p>Un contenu prêt pour ta communauté, du montage jusqu'à la diffusion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="contact on-auburn" id="contact">
+  <div class="wrap">
+    <h2>Parlons de ton projet.</h2>
+    <p>Derrière Auburn, c'est moi, Clélia, expat basée à Tallinn, je travaille à distance avec des clients en Europe et ailleurs, en français, anglais et espagnol.</p>
+    <div class="actions">
+      <a class="btn btn-solid" href="#contact" data-mail>Écris-moi</a>
+      <button type="button" class="btn btn-line" data-copy>Copier mon e-mail</button>
+      <!-- Instagram : à remettre quand le compte est actif
+      <a class="btn btn-line" href="https://www.instagram.com/auburn.video/" target="_blank" rel="noopener">Instagram</a> -->
+    </div>
+    <span class="mail-out" data-reveal hidden></span>
+  </div>
+  <footer>
+    <div class="wrap">
+      <p>Clélia Borget, Auburn OÜ</p>
+      <!-- <p><a href="https://www.instagram.com/auburn.video/" target="_blank" rel="noopener">instagram.com/auburn.video</a></p> -->
+    </div>
+  </footer>
+</section>
+
+<script>
+  (function () {
+    var c = document.getElementById('carousel');
+    var prev = document.getElementById('prev');
+    var next = document.getElementById('next');
+    if (!c) return;
+    function step() { return Math.max(c.clientWidth * 0.8, 280); }
+    function update() {
+      prev.disabled = c.scrollLeft < 8;
+      next.disabled = c.scrollLeft + c.clientWidth >= c.scrollWidth - 8;
+    }
+    prev.addEventListener('click', function () { c.scrollBy({ left: -step() }); });
+    next.addEventListener('click', function () { c.scrollBy({ left: step() }); });
+    c.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    c.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { c.scrollBy({ left: step() }); e.preventDefault(); }
+      if (e.key === 'ArrowLeft') { c.scrollBy({ left: -step() }); e.preventDefault(); }
+    });
+    update();
+    // E-mail assemblé par le script : il n'est pas écrit en clair dans la page
+    var addr = ['auburn.ou', 'gmail.com'].join('@');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-mail]'), function (a) {
+      a.href = 'mailto:' + addr + '?subject=Un%20projet%20vid%C3%A9o';
+    });
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) { return navigator.clipboard.writeText(text); }
+      return new Promise(function (ok, fail) {
+        var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy') ? ok() : fail(); } catch (e) { fail(e); } document.body.removeChild(ta);
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('[data-copy]'), function (btn) {
+      var label = btn.textContent;
+      var out = btn.parentNode.querySelector('[data-reveal]') || btn.parentNode.nextElementSibling;
+      btn.addEventListener('click', function () {
+        var show = function (msg) {
+          btn.textContent = msg; btn.classList.add('is-copied');
+          if (out && out.hasAttribute('data-reveal')) { out.textContent = addr; out.hidden = false; }
+          setTimeout(function () { btn.textContent = label; btn.classList.remove('is-copied'); }, 2500);
+        };
+        copyText(addr).then(function () { show('Copié !'); }, function () { show('Adresse affichée'); });
+      });
+    });
+    // Lecture sur place : la vidéo YouTube remplace la miniature (chargée seulement au clic)
+    var playing = null;
+    function stopPlayer(p) { var f = p && p.querySelector('iframe'); if (f) { f.remove(); p.classList.remove('is-playing'); } }
+    Array.prototype.forEach.call(document.querySelectorAll('.poster[data-yt] .poster-hit'), function (hit) {
+      hit.addEventListener('click', function () {
+        var p = hit.parentNode;
+        if (playing && playing !== p) { stopPlayer(playing); }
+        var f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/' + p.getAttribute('data-yt') + '?autoplay=1&rel=0';
+        f.title = 'Lecteur vidéo YouTube';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        f.setAttribute('allowfullscreen', '');
+        p.appendChild(f); p.classList.add('is-playing'); playing = p; f.focus();
+      });
+    });
+    // Si l'utilisateur a active "reduire les animations", on coupe la video
+    var v = document.querySelector('.banner video');
+    if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
+  })();
+</script>
+</body>
+</html>
